@@ -1,0 +1,22 @@
+:root {
+    --cow-theme-background: #223;
+    --cow-theme-on-background: #eee;
+}
+
+/* TEST STYLES */
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+
+body {
+    background-color: var(--cow-theme-background);
+    color: var(--cow-theme-on-background);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}

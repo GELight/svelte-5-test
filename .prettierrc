@@ -1,0 +1,19 @@
+{
+  "printWidth": 160,
+  "tabWidth": 4,
+  "bracketSpacing": true,
+  "singleQuote": false,
+  "trailingComma": "es5",
+  "semi": true,
+  "newline-before-return": true,
+  "no-duplicate-variable": [
+    true,
+    "check-parameters"
+  ],
+  "no-var-keyword": true,
+  "svelteSortOrder": "scripts-markup-styles",
+  "svelteStrictMode": true,
+  "svelteBracketNewLine": true,
+  "svelteAllowShorthand": true,
+  "svelteIndentScriptAndStyle": true
+}

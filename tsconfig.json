@@ -1,0 +1,46 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "resolveJsonModule": true,
+    /**
+     * Typecheck JS in `.svelte` and `.js` files by default.
+     * Disable checkJs if you'd like to use dynamic types in JS.
+     * Note that setting allowJs false does not prevent the use
+     * of JS in `.svelte` files.
+     */
+    "allowJs": true,
+    "checkJs": true,
+    "isolatedModules": true,
+    "moduleDetection": "auto",
+    /**
+     * Note:
+     * - The TypeScript option "verbatimModuleSyntax" is now required when using Svelte files with lang="ts".
+     * - If you set it to `false`, it will change the import syntax.
+     * - It makes import { type HTMLAttributes } from "svelte/elements"; become import "svelte/elements"; tho as that's technically what you asked it.
+     *
+     * import { HTMLAttributes } from "svelte/elements";
+     * - Typescript-Error by default
+     * - [commonjs--resolver] No known conditions for "./elements" specifier in "svelte" package
+     * import { type HTMLAttributes } from "svelte/elements"; - by true
+     * import type { HTMLAttributes } from "svelte/elements"; - by false
+     */
+    "verbatimModuleSyntax": true
+  },
+  "types": [
+    "svelte",
+    "vite/client"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
