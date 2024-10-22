@@ -1,22 +1,98 @@
 :root {
-    --cow-theme-background: #223;
-    --cow-theme-on-background: #eee;
-}
+    /* Colors */
 
-/* TEST STYLES */
+    --cow-theme-background: var(--colors-gray-800);
+    --cow-theme-on-background: var(--colors-gray-300);
 
-html, body {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-}
+    --cow-theme-brand: #007bff;
+    --cow-theme-brand-hover: #0069da;
+    --cow-theme-on-brand: #c6e1ff;
+    --cow-theme-on-brand-hover: #fff;
 
-body {
-    background-color: var(--cow-theme-background);
-    color: var(--cow-theme-on-background);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
+    --cow-theme-primary: var(--cow-theme-brand);
+    --cow-theme-primary-hover: var(--cow-theme-brand-hover);
+    --cow-theme-on-primary: var(--cow-theme-on-brand);
+    --cow-theme-on-primary-hover: var(--cow-theme-on-brand-hover);
+
+    --cow-theme-secondary: var(--colors-gray-200);
+    --cow-theme-secondary-hover: var(--colors-gray-500);
+    --cow-theme-on-secondary: var(--colors-gray-50);
+    --cow-theme-on-secondary-hover: var(--colors-gray-100);
+
+    /* Special Colors */
+
+    --cow-theme-info: var(--colors-blue-100);
+    --cow-theme-on-info: var(--colors-blue-700);
+    --cow-theme-warning: var(--colors-gold-500);
+    --cow-theme-on-warning: var(--colors-gold-50);
+    --cow-theme-error: var(--colors-red-500);
+    --cow-theme-on-error: var(--colors-red-100);
+    --cow-theme-success: var(--colors-green-100);
+    --cow-theme-on-success: var(--colors-green-700);
+
+    /* Borders */
+
+    --cow-theme-border-width-default: 1px;
+    --cow-theme-border-style-default: solid;
+    --cow-theme-border-color-default: var(--colors-gray-100);
+    --cow-theme-border: var(--cow-theme-border-width-default) var(--cow-theme-border-style-default) var(--cow-theme-border-color-default);
+
+    /* Focus */
+
+    --cow-theme-focus-border: 2px solid rgb(255 255 255 / 70%);
+
+    /* Shadows */
+
+    --cow-theme-shadow-xs: 0px 0px 2px 0 rgb(0 0 0 / 20%);
+    --cow-theme-shadow-sm: 2px 2px 4px 0 rgb(0 0 0 / 20%);
+    --cow-theme-shadow-md: 2px 2px 8px 0 rgb(0 0 0 / 20%);
+    --cow-theme-shadow-lg: 2px 2px 10px 1px rgb(0 0 0 / 20%);
+    --cow-theme-shadow-xl: 2px 2px 16px 3px rgb(0 0 0 / 20%);
+    --cow-theme-shadow-xxl: 2px 2px 24px 6px rgb(0 0 0 / 20%);
+
+    /* Radius */
+
+    --cow-theme-radius-xs: 0.25rem;
+    --cow-theme-radius-sm: 0.5rem;
+    --cow-theme-radius-md: 1rem;
+    --cow-theme-radius-lg: 1.5rem;
+    --cow-theme-radius-xl: 2rem;
+    --cow-theme-radius-xxl: 2.5rem;
+    --cow-theme-radius-circle: 100%;
+
+    /* Typography */
+
+    --cow-theme-font-family: poppins, sans-serif;
+    --cow-theme-line-height: inherit;
+    --cow-theme-font-weight: inherit;
+    --cow-theme-font-style: inherit;
+    --cow-theme-font-stretch: inherit;
+    --cow-theme-letter-spacing: inherit;
+    --cow-theme-text-transform: inherit;
+
+    --cow-theme-font-size: inherit;
+    --cow-theme-font-size-xs: 0.7rem;
+    --cow-theme-font-size-sm: 0.81rem;
+    --cow-theme-font-size-md: 1rem;
+    --cow-theme-font-size-lg: 1.2rem;
+    --cow-theme-font-size-xl: 1.375rem;
+    --cow-theme-font-size-xxl: 1.8rem;
+    --cow-theme-font-size-xxxl: 3rem;
+
+    --cow-theme-text-color-default: #7a7a7a;
+    --cow-theme-text-color-default-hover: #444;
+
+    /* Spaces */
+
+    --cow-theme-gap-xs: 0.1rem;
+    --cow-theme-gap-sm: 0.25rem;
+    --cow-theme-gap-md: 0.5rem;
+    --cow-theme-gap-lg: 1rem;
+    --cow-theme-gap-xl: 1.5rem;
+    --cow-theme-gap-xxl: 2rem;
+    --cow-theme-gap-xxxl: 2.5rem;
+
+    /* Transition */
+    --cow-theme-transition-default: all 0.4s ease-in-out;
+    --cow-theme-transition-short: all 0.2s ease-in-out;
 }

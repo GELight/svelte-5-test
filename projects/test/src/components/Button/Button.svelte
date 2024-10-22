@@ -1,82 +1,162 @@
 <svelte:options customElement="cow-ps-button" />
 
 <script lang="ts">
+    import { onMount } from "svelte";
+    import { on } from 'svelte/events';
     import type { HTMLAttributes } from "svelte/elements";
-    import type { Snippet } from "svelte";
 
-    // Input props type definitions
     interface Props extends HTMLAttributes<HTMLElement> {
-        children: Snippet<[]>;
-        named: Snippet<[]>;
-        variant: string;
-        url: string;
-        excludeValidation: boolean; // Test with "exclude-validation" (kebab-case) in template
-        inverted: boolean;
         disabled: boolean;
     }
+    let { disabled = false }: Props = $props();
 
-    let {
-        children,
-        named,
-        variant,
-        url,
-        excludeValidation,
-        inverted,
-        disabled,
-    }: Props = $props();
+    let focused = $state<boolean>(false);
 
-    const click = (e: Event) => {
-        e.preventDefault();
+    onMount(() => {
+        on($host(), 'focus', () => {
+            focused = true;
+        });
+        on($host(), 'focusout', () => {
+            focused = false;
+        });
+    });
 
-        if (!disabled) {
-            if (isValidUrl(url)) {
-                window.location.href = url;
-            }
-
-            $host().dispatchEvent(
-                new CustomEvent("click", { detail: e }),
-            );
+    $effect(() => {
+        if (disabled) {
+            $host().setAttribute("tabindex", "-1");
+        } else {
+            $host().setAttribute("tabindex", "0");
         }
-    };
-
-    const isValidUrl = (url: string) => {
-        if (excludeValidation || url === "/") {
-            return true;
-        }
-
-        return /^(https?:\/\/)?([^\s$.?#].[^\s]*)$/i.test(url);
-    };
+    });
 </script>
 
-<p>cow-ps-button (custom element)</p>
-<p>First try to refactor my old svelte 3 button component</p>
-<h2>Slots are empty!</h2>
-
 <button
-    class="btn {variant ? 'btn-' + variant : ''}"
-    class:disabled={disabled}
-    class:inverted={inverted}
-    onclick="{click}"
+    class="cow-button"
+    class:focused={focused}
+    disabled={disabled}
+    tabindex="-1"
 >
-    {@render children()}
-    {@render named()}
+    <slot></slot>
 </button>
 
 <style lang="scss">
   :host {
+    position: relative;
     display: inline-block;
     vertical-align: center;
-    border: 1px dashed #ed0000;
-    padding: 20px;
+    outline: none;
   }
 
-  .btn {
+  .cow-button {
+    box-sizing: border-box;
+    position: relative;
     flex: 1;
     display: flex;
     align-items: center;
     gap: 5px;
-    box-sizing: border-box;
-    height: 32px;
-    padding: 0 10px;
+    transition: all .1s ease-in-out;
+    outline: none;
+
+    color: var(--cow-button-color);
+    background: var(--cow-button-bg);
+    border: var(--cow-button-border);
+    padding: var(--cow-button-padding);
+    margin: var(--cow-button-margin);
+    box-shadow: var(--cow-button-box-shadow);
+    font-size: var(--cow-button-font-size);
+    font-weight: var(--cow-button-font-weight);
+
+    &:hover:not(.disabled) {
+      cursor: pointer;
+      color: var(--cow-button-hover-color);
+      background: var(--cow-button-hover-bg);
+      border: var(--cow-button-hover-border);
+      box-shadow: var(--cow-button-hover-box-shadow);
+    }
+
+    &.inverted {
+      color: var(--cow-button-inverted-color);
+      background: var(--cow-button-inverted-bg);
+      border: var(--cow-button-inverted-border);
+
+      &:hover {
+        color: var(--cow-button-inverted-hover-color);
+        background: var(--cow-button-inverted-hover-bg);
+        border: var(--cow-button-inverted-hover-border);
+      }
+    }
+
+    &[disabled] {
+      opacity: var(--cow-button-disabled-opacity);
+      cursor: auto;
+      pointer-events: none;
+    }
+
+    &.secondary {
+      color: var(--cow-button-secondary-color);
+      background: var(--cow-button-secondary-bg);
+      border: var(--cow-button-secondary-border);
+      padding: var(--cow-button-secondary-padding);
+      margin: var(--cow-button-secondary-margin);
+      text-decoration: var(--cow-button-secondary-text-decoration);
+      box-shadow: var(--cow-button-secondary-box-shadow);
+
+      &.inverted {
+        color: var(--cow-button-secondary-inverted-color);
+        background: var(--cow-button-secondary-inverted-bg);
+        border: var(--cow-button-secondary-inverted-border);
+
+        &:hover {
+          color: var(--cow-button-secondary-inverted-hover-color);
+          background: var(--cow-button-secondary-inverted-hover-bg);
+          border: var(--cow-button-secondary-inverted-hover-border);
+        }
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: var(--cow-button-secondary-hover-color);
+        background: var(--cow-button-secondary-hover-bg);
+        border: var(--cow-button-secondary-hover-border);
+        text-decoration: var(--cow-button-secondary-hover-text-decoration);
+        box-shadow: var(--cow-button-secondary-hover-box-shadow);
+      }
+    }
+
+    &.link {
+      color: var(--cow-button-link-color);
+      background: var(--cow-button-link-bg);
+      border: var(--cow-button-link-border);
+      padding: var(--cow-button-link-padding);
+      margin: var(--cow-button-link-margin);
+      text-decoration: var(--cow-button-link-text-decoration);
+
+      &:hover {
+        cursor: pointer;
+        color: var(--cow-button-link-hover-color);
+        background: var(--cow-button-link-hover-bg);
+        border: var(--cow-button-link-hover-border);
+        text-decoration: var(--cow-button-link-hover-text-decoration);
+      }
+    }
+
+    &.small {
+      padding: var(--cow-button-sm-padding);
+      font-size: var(--cow-button-sm-font-size);
+      font-weight: var(--cow-button-sm-font-weight);
+    }
+
+    &.focused {
+      &:before {
+        z-index: 10000;
+        content: " ";
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border: var(--cow-theme-focus-border);
+      }
+    }
   }
 </style>
