@@ -2,7 +2,7 @@
 
 <script lang="ts">
     let show = $state<boolean>(false);
-    let exampleState = $state<boolean>(false);
+    let exampleState = $state<number>(1);
     
     const toggleShow = () => {
         show = !show;
@@ -13,32 +13,48 @@
 
     <cow-ps-button onclick={toggleShow} onkeypress={toggleShow} role="button" tabindex="0">Toggle Show Modal</cow-ps-button>
 
-    <cow-ps-modal show={show}> <!-- HERE IS THE PROBLEM ... show={true} works -->
-
+    <cow-ps-modal show={show}>
         <div slot="header">Modal Header Slot</div>
 
-        {#if exampleState}
+        {#if exampleState === 1}
 
-            Any content here will be placed in the default slot of the modal.
+            <cow-ps-layout class="stretch direction-column align-items-center gap-md">
+                Content of State 1
+                    <cow-ps-button
+                        onclick={() => exampleState = 2}
+                        onkeypress={() => exampleState = 2}
+                        role="button" tabindex="0">Footer State 1</cow-ps-button>
+            </cow-ps-layout>
+
+            <!--
+            Problem is here:
+                If no named footer slot is initially rendered anywhere in the template,
+                no further footer slots are rendered in other conditions.
+            <div slot="footer"></div>
+            -->
+
+        {:else if exampleState === 2}
+
+            Content of State 2
 
             <div slot="footer">
                 <cow-ps-layout class="stretch justify-content-center">
                     <cow-ps-button
-                            onclick={() => exampleState = !exampleState}
-                            onkeypress={() => exampleState = !exampleState}
+                            onclick={() => exampleState = 3}
+                            onkeypress={() => exampleState = 3}
                             role="button" tabindex="0">Footer State 1</cow-ps-button>
                 </cow-ps-layout>
             </div>
 
-        {:else}
+        {:else if exampleState === 3}
 
-            Another content here will be placed in the default slot.
+            Content of State 3
 
             <div slot="footer">
                 <cow-ps-layout class="stretch justify-content-center">
                     <cow-ps-button
-                        onclick={() => exampleState = !exampleState}
-                        onkeypress={() => exampleState = !exampleState}
+                        onclick={() => exampleState = 1}
+                        onkeypress={() => exampleState = 1}
                         role="button" tabindex="0">State 2</cow-ps-button>
                 </cow-ps-layout>
             </div>
